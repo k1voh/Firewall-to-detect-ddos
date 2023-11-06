@@ -20,7 +20,7 @@ def detectDdos(json_dict):
 
 def firewall(packet):
     IP_pkt = IP(packet.get_payload())
-    timeStamp_end = str(packet.get_timestamp())
+    timeStamp_end = packet.get_timestamp()
     print(IP_pkt[0].show())
     inter_arrival_time = int((timestamp_start - timeStamp_end) * 1000) #get IAT
     timestamp_start = packet.get_timestamp()
@@ -47,7 +47,7 @@ def firewall(packet):
                  'Tot Fwd Pkts':[tot_fwd_pkts],
                  'Init Bwd Win Byts':[int_bwd_win_bytes],
                  'Src IP':[IP_pkt.src],
-                 'Dst IP':[IP_pkt.src],
+                 'Dst IP':[IP_pkt.dst],
                  'Timestamp':[timeStamp_end]}
     
     if detectDdos(json_dict) == 'ddos':
